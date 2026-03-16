@@ -37,11 +37,16 @@ async function runUploadTask(targetDate: Date) {
 }
 
 const isOnce = process.argv.includes('--once');
+const isOnceTomorrow = process.argv.includes('--once-tomorrow');
 
 if (isOnce) {
-    logger.info('1회성 실행 옵션으로 스크립트를 시작합니다.');
+    logger.info('1회성 실행 옵션으로 스크립트를 시작합니다 (오늘).');
     const today = dayjs().tz(KST).toDate();
     runUploadTask(today);
+} else if (isOnceTomorrow) {
+    logger.info('1회성 실행 옵션으로 스크립트를 시작합니다 (내일).');
+    const tomorrow = dayjs().tz(KST).add(1, 'day').toDate();
+    runUploadTask(tomorrow);
 } else {
     const rule = new schedule.RecurrenceRule();
     rule.hour = 22;

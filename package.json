@@ -6,6 +6,7 @@
     "scripts": {
         "generate": "tsx src/generate.tsx",
         "once": "npx tsx src/index.ts --once",
+        "onceto": "npx tsx src/index.ts --once-tomorrow",
         "build": "tsc",
         "start": "node dist/index.js",
         "bstart": "npm run build && npm run start",
