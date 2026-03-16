@@ -34,7 +34,7 @@ pnpm install
 ```
 
 가상환경 설정 및 패키지 설치
-- ssh
+- linux
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
