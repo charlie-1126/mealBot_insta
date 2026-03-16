@@ -61,14 +61,14 @@ pnpm run bstart
 
 # 이미지 생성만 단독 테스트
 pnpm run generate
+
+# 로컬에서 세션 정보 생성
+python.exe .\src\generate_session.py
 ```
 
 - 실행 완료 후 생성된 이미지는 `output/` 폴더에서 확인할 수 있습니다.
 - 로그는 화면 콘솔 및 `logs/combined.log`, `logs/error.log` 파일에 저장됩니다.
-
-## 라이선스
-
-MIT License
+- 세션 정보를 이용하여 로그인할 수 있습니다.(선택)
 
 ## Authors
 
