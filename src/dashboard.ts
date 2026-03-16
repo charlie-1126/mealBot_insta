@@ -232,6 +232,6 @@ app.get('/', (req, res) => {
     res.send(html);
 });
 
-app.listen(port, () => {
-    console.log(`[Dashboard] 대시보드 서버 재실행됨 (포트: ${port})`);
+app.listen(port as number, '0.0.0.0', () => {
+    console.log(`[Dashboard] 대시보드 서버 재실행됨 (포트: ${port}) - 외부 접속 허용 (0.0.0.0)`);
 });
