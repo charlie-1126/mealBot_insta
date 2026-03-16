@@ -4,6 +4,9 @@ import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
 import type { MealCardData } from './template.js';
 import logger from './logger.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -19,8 +22,8 @@ export async function fetchNeisMeals(dateParam?: Date): Promise<MealCardData[]> 
     const url = 'https://open.neis.go.kr/hub/mealServiceDietInfo';
     const params = {
         Type: 'json',
-        ATPT_OFCDC_SC_CODE: 'Q10', // 전라남도교육청 (능주고등학교)
-        SD_SCHUL_CODE: '8490081', // 능주고등학교
+        ATPT_OFCDC_SC_CODE: process.env.NEIS_ATPT_OFCDC_SC_CODE,
+        SD_SCHUL_CODE: process.env.NEIS_SD_SCHUL_CODE,
         MLSV_YMD: ymd,
     };
 

@@ -17,11 +17,13 @@ NEIS Open API를 통해 능주고등학교 급식 정보를 가져와 인스타�
 
 ## 환경 변수 설정 (.env)
 
-프로젝트 루트 경로에 `.env` 파일을 생성하고 인스타그램 계정 정보를 입력합니다.
+프로젝트 루트 경로에 `.env` 파일을 생성하고 인스타그램 계정 정보 및 학교정보를 입력합니다.
 
 ```env
-ID=your_instagram_username
-PASSWORD=your_instagram_password
+ID=INSTA_ID
+PASSWORD=INSTA_PASSWORD
+NEIS_ATPT_OFCDC_SC_CODE=NEIS_ATPT_OFCDC_SC_CODE
+NEIS_SD_SCHUL_CODE=NEIS_SD_SCHUL_CODE
 ```
 
 ## 설치
@@ -56,4 +58,5 @@ MIT License
 
 - [charlie-1126](https://github.com/charlie-1126)
 - [bmcyver](https://github.com/bmcyver)
+
 # mealBot_insta
