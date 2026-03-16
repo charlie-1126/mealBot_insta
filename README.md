@@ -26,11 +26,26 @@ NEIS_ATPT_OFCDC_SC_CODE=NEIS_ATPT_OFCDC_SC_CODE
 NEIS_SD_SCHUL_CODE=NEIS_SD_SCHUL_CODE
 ```
 
-## 설치
+## 설치 및 실행
 
+패키지 설치
 ```bash
 pnpm install
 ```
+
+가상환경 설정 및 패키지 설치
+- ssh
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install instagrapi
+```
+- window(CMD)
+ ```bash
+python3 -m venv .venv
+.venv\Scripts\activate
+pip install instagrapi
+ ```
 
 ## 실행 스크립트
 
