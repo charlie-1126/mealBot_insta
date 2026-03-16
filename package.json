@@ -8,24 +8,29 @@
         "once": "npx tsx src/index.ts --once",
         "onceto": "npx tsx src/index.ts --once-tomorrow",
         "build": "tsc",
-        "start": "node dist/index.js",
-        "bstart": "npm run build && npm run start",
-        "check": "tsc --noEmit",
-        "prettier": "prettier --write ."
+        "start": "pm2 start ecosystem.config.cjs",
+        "start:dashboard": "node dist/dashboard.js",
+        "bstart": "npm run build && pm2 start ecosystem.config.cjs",
+        "stop": "pm2 stop all",
+        "restart": "pm2 restart all",
+        "delete": "pm2 delete all"
     },
     "dependencies": {
         "axios": "^1.13.6",
         "dayjs": "^1.11.20",
         "dotenv": "^17.3.1",
+        "express": "^5.2.1",
         "instagram-private-api": "^1.46.1",
         "mime-types": "^3.0.2",
         "node-schedule": "^2.1.1",
+        "pm2": "^6.0.14",
         "react": "^19.2.4",
         "satori": "^0.25.0",
         "sharp": "^0.34.5",
         "winston": "^3.19.0"
     },
     "devDependencies": {
+        "@types/express": "^5.0.6",
         "@types/node": "^25.5.0",
         "@types/node-schedule": "^2.1.8",
         "@types/react": "^19.2.14",

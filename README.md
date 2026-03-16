@@ -24,28 +24,36 @@ ID=INSTA_ID
 PASSWORD=INSTA_PASSWORD
 NEIS_ATPT_OFCDC_SC_CODE=NEIS_ATPT_OFCDC_SC_CODE
 NEIS_SD_SCHUL_CODE=NEIS_SD_SCHUL_CODE
+DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL
 ```
+
+`DISCORD_WEBHOOK_URL`은 선택사항입니다. 설정하면 에러/종료시와 업로드 성공시 알림을 받을 수 있습니다.
 
 ## 설치 및 실행
 
 패키지 설치
+
 ```bash
 pnpm install
 ```
 
 가상환경 설정 및 패키지 설치
+
 - linux
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install instagrapi
 ```
+
 - window(CMD)
- ```bash
+
+```bash
 python3 -m venv .venv
 .venv\Scripts\activate
 pip install instagrapi
- ```
+```
 
 ## 실행 스크립트
 
@@ -53,8 +61,17 @@ pip install instagrapi
 # 오늘자 급식 사진 한번 업로드
 pnpm run once
 
-# 스케줄러 봇 시작
+# 스케줄러 봇 시작(pm2 시작)
 pnpm run start
+
+# 봇 종료
+pnpm run stop
+
+# 봇 재시작
+pnpm run restart
+
+# pm2 앱 삭제
+pnpm run delete
 
 # 빌드 후 스케줄러 봇 시작
 pnpm run bstart
@@ -69,6 +86,19 @@ python.exe .\src\generate_session.py
 - 실행 완료 후 생성된 이미지는 `output/` 폴더에서 확인할 수 있습니다.
 - 로그는 화면 콘솔 및 `logs/combined.log`, `logs/error.log` 파일에 저장됩니다.
 - 세션 정보를 이용하여 로그인할 수 있습니다.(선택)
+
+## 대시보드
+
+이 프로젝트는 봇의 실행 상태 및 최근 로그(업로드 기록, 에러 로그)를 쉽게 확인할 수 있도록 Express 기반의 간이 대시보드를 제공합니다. PM2로 실행 시(`pnpm run bstart`) 대시보드 서버도 함께 구동됩니다.
+
+**접근 방법**
+
+- 로컬 환경: 브라우저에서 `http://localhost:3000` 접속
+- GCP 등 외부 서버:
+    1. 클라우드 방화벽(Firewall) 설정에서 포트 `3000` (또는 지정한 포트)의 인바운드(수신) 트래픽을 허용(Allow) 처리해야 합니다.
+    2. 브라우저에서 `http://[서버의_외부_IP]:3000` 으로 접속하여 대시보드를 확인합니다.
+
+_(포트 번호는 환경 변수 `.env`에 `PORT=원하는포트번호`를 입력하여 변경할 수 있습니다. 기본값은 3000입니다.)_
 
 ## Authors
 
