@@ -28,12 +28,24 @@ export async function uploadToInstagram(imagePaths: string[], caption: string): 
             pythonScriptPath = path.join(__dirname, '..', 'src', 'instagram_upload.py');
         }
 
-        const venvPythonPath = path.join(__dirname, '..', '.venv', 'Scripts', 'python.exe');
-        const rootVenvPython = path.join(__dirname, '..', '..', '.venv', 'Scripts', 'python.exe');
+        const isWin = process.platform === 'win32';
+        const venvPythonWin = path.join(__dirname, '..', '.venv', 'Scripts', 'python.exe');
+        const venvPythonUnix = path.join(__dirname, '..', '.venv', 'bin', 'python');
+        const rootVenvPythonWin = path.join(
+            __dirname,
+            '..',
+            '..',
+            '.venv',
+            'Scripts',
+            'python.exe',
+        );
+        const rootVenvPythonUnix = path.join(__dirname, '..', '..', '.venv', 'bin', 'python');
 
-        let pythonCmd = 'python';
-        if (fs.existsSync(venvPythonPath)) pythonCmd = venvPythonPath;
-        else if (fs.existsSync(rootVenvPython)) pythonCmd = rootVenvPython;
+        let pythonCmd = isWin ? 'python' : 'python3';
+        if (fs.existsSync(venvPythonWin)) pythonCmd = venvPythonWin;
+        else if (fs.existsSync(venvPythonUnix)) pythonCmd = venvPythonUnix;
+        else if (fs.existsSync(rootVenvPythonWin)) pythonCmd = rootVenvPythonWin;
+        else if (fs.existsSync(rootVenvPythonUnix)) pythonCmd = rootVenvPythonUnix;
 
         const pythonProcess = spawn(pythonCmd, [
             pythonScriptPath,
