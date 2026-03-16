@@ -5,3 +5,4 @@ output
 .env
 .venv
 logs
+session.json
