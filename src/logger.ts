@@ -33,10 +33,15 @@ type CustomLogger = winston.Logger & {
     dataset: winston.LeveledLogMethod;
 };
 
+const timeFormat = () => {
+    const kstDate = new Date(Date.now() + 9 * 60 * 60 * 1000);
+    return kstDate.toISOString().replace('T', ' ').substring(0, 19);
+};
+
 const logger = winston.createLogger({
     levels: customLevels.levels,
     level: 'dataset', // level이 'dataset' 이하(0~5)인 모든 로그 출력
-    format: combine(timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), myFormat),
+    format: combine(timestamp({ format: timeFormat }), myFormat),
     transports: [
         new winston.transports.Console({
             format: combine(colorize({ all: true }), myFormat),
