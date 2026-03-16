@@ -50,6 +50,7 @@ pip install instagrapi
 ## 실행 스크립트
 
 ```bash
+# 오늘자 급식 사진 한번 업로드
 pnpm run once
 
 # 스케줄러 봇 시작
@@ -73,5 +74,3 @@ MIT License
 
 - [charlie-1126](https://github.com/charlie-1126)
 - [bmcyver](https://github.com/bmcyver)
-
-# mealBot_insta
