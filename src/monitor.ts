@@ -20,15 +20,21 @@ pm2.connect((err: any) => {
 
     pm2.launchBus((err: any, pm2_bus: any) => {
         if (err) throw err;
-
         // 로그 메세지 감지 (업로드 성공 등 일반 출력)
         pm2_bus.on('log:out', (data: any) => {
             const logMessage = data.data ? data.data.toString() : '';
             if (logMessage.includes('업로드 성공')) {
                 const appName = data.process.name;
-                sendDiscordAlert(
-                    `✅ **업로드 성공**\n\`${appName}\` 프로세스에서 인스타그램 업로드를 완료했습니다!`,
-                );
+                sendDiscordAlert({
+                    embeds: [
+                        {
+                            title: '업로드 성공',
+                            description: `\`${appName}\` 프로세스에서 인스타그램 업로드를 완료했습니다!`,
+                            color: 0x00ff00,
+                            timestamp: new Date().toISOString(),
+                        },
+                    ],
+                });
             }
         });
 
@@ -38,7 +44,16 @@ pm2.connect((err: any) => {
                 const appName = data.process.name;
                 // 모니터링 앱 자신은 제외
                 if (appName !== 'mealbot-monitor') {
-                    sendDiscordAlert(`**봇 중지 알림**\n\`${appName}\` 프로세스가 종료되었습니다.`);
+                    sendDiscordAlert({
+                        embeds: [
+                            {
+                                title: '봇 중지 알림',
+                                description: `\`${appName}\` 프로세스가 종료되었습니다.`,
+                                color: 0xffa500,
+                                timestamp: new Date().toISOString(),
+                            },
+                        ],
+                    });
                 }
             }
         });
@@ -48,19 +63,27 @@ pm2.connect((err: any) => {
             const appName = data.process.name;
             const errorMessage =
                 data.data && data.data.message ? data.data.message : '알 수 없는 에러';
-            sendDiscordAlert(
-                `**예외 발생/크래시**\n\`${appName}\` 프로세스에서 에러가 발생했습니다:\n\`\`\`${errorMessage}\`\`\``,
-            );
+            sendDiscordAlert({
+                embeds: [
+                    {
+                        title: '예외 발생 / 크래시',
+                        description: `\`${appName}\` 프로세스에서 에러가 발생했습니다.`,
+                        fields: [{ name: '에러 메세지', value: `\`\`\`\n${errorMessage}\n\`\`\`` }],
+                        color: 0xff0000,
+                        timestamp: new Date().toISOString(),
+                    },
+                ],
+            });
         });
     });
 });
 
-async function sendDiscordAlert(content: string) {
+async function sendDiscordAlert(payload: any) {
     try {
         await fetch(DISCORD_WEBHOOK_URL as string, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ content }),
+            body: JSON.stringify(payload),
         });
     } catch (error) {
         console.error('디스코드 웹훅 전송 실패:', error);
