@@ -29,6 +29,8 @@ DISCORD_WEBHOOK_URL=DISCORD_WEBHOOK_URL
 
 `DISCORD_WEBHOOK_URL`은 선택사항입니다. 설정하면 에러/종료시와 업로드 성공시 알림을 받을 수 있습니다.
 
+_미설정시 `mealbot-monitor`앱이 errored라고 뜨는것은 정상입니다_
+
 ## 설치 및 실행
 
 패키지 설치
@@ -58,34 +60,31 @@ pip install instagrapi
 ## 실행 스크립트
 
 ```bash
-# 오늘자 급식 사진 한번 업로드
+# 오늘자 급식 사진 즉시 업로드
 pnpm run once
-
+# 내일자 급식 사진 즉시 업로드
+pnpm run onceto
 # 스케줄러 봇 시작(pm2 시작)
 pnpm run start
-
+#봇 리로드
+pnpm run reload
 # 봇 종료
 pnpm run stop
-
 # 봇 재시작
 pnpm run restart
-
 # pm2 앱 삭제
 pnpm run delete
-
 # 빌드 후 스케줄러 봇 시작
 pnpm run bstart
-
 # 이미지 생성만 단독 테스트
 pnpm run generate
-
 # 로컬에서 세션 정보 생성
 python.exe .\src\generate_session.py
 ```
 
 - 실행 완료 후 생성된 이미지는 `output/` 폴더에서 확인할 수 있습니다.
 - 로그는 화면 콘솔 및 `logs/combined.log`, `logs/error.log` 파일에 저장됩니다.
-- 세션 정보를 이용하여 로그인할 수 있습니다.(선택)
+- 세션 정보를 생성 후 이를 이용하여 초기 로그인을 진행 할 수 있습니다.(선택)
 
 ## 대시보드
 

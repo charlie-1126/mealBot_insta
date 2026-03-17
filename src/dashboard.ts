@@ -64,7 +64,7 @@ app.get('/api/status', (req, res) => {
     res.json({
         lastStart,
         lastSuccess,
-        prettyEvents: prettyEvents.slice(0, 15), // 최근 15개
+        prettyEvents: prettyEvents.slice(0, 30), // 최근 30개
         rawCombined: lines.slice(-200).reverse().join('\n'), // 최신 200줄 (개발자용)
         rawError: errorLogs
             .split('\n')
@@ -129,14 +129,14 @@ app.get('/', (req, res) => {
                     
                     <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-center border-l-4 border-l-green-500 h-[calc(50%-0.5rem)]">
                         <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">
-                            last Success time
+                            last Upload time
                         </h2>
                         <p id="lastSuccess" class="text-lg font-bold text-green-600">Loading...</p>
                     </div>
                 </div>
 
                 <!-- Pretty Logs (History) -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col max-h-[350px]">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col h-[220px]">
                     <h2 class="text-sm font-bold text-gray-700 uppercase tracking-widest mb-4 flex items-center gap-2">
                         Upload Events
                     </h2>
