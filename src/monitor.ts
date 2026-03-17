@@ -10,6 +10,10 @@ if (!DISCORD_WEBHOOK_URL) {
     process.exit(1);
 }
 
+// 중복 알림 방지를 위한 상태 저장 (디바운스용)
+const alertCooldowns = new Map<string, number>();
+const COOLDOWN_MS = 5000; // 5초
+
 pm2.connect((err: any) => {
     if (err) {
         console.error('PM2 연결 실패:', err);
@@ -42,6 +46,12 @@ pm2.connect((err: any) => {
         pm2_bus.on('process:event', (data: any) => {
             if (data.event === 'exit') {
                 const appName = data.process.name;
+
+                const now = Date.now();
+                const lastAlert = alertCooldowns.get(`${appName}_exit`) || 0;
+                if (now - lastAlert < COOLDOWN_MS) return;
+                alertCooldowns.set(`${appName}_exit`, now);
+
                 // 모니터링 앱 자신은 제외
                 if (appName !== 'mealbot-monitor') {
                     sendDiscordAlert({
