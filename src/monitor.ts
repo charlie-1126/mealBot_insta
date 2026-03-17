@@ -34,8 +34,7 @@ pm2.connect((err: any) => {
 
         // 프로세스 이벤트 감지 (종료, 재시작 등)
         pm2_bus.on('process:event', (data: any) => {
-            // 'exit', 'stop', 'errored' 등의 상태 감지
-            if (data.event === 'exit' || data.event === 'stop') {
+            if (data.event === 'exit') {
                 const appName = data.process.name;
                 // 모니터링 앱 자신은 제외
                 if (appName !== 'mealbot-monitor') {
