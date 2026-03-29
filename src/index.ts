@@ -16,8 +16,10 @@ async function runUploadTask(targetDate: Date) {
     try {
         const dateObj = dayjs(targetDate).tz(KST);
         const yyyy = dateObj.format('YYYY');
-        const mm = dateObj.format('MM');
-        const dd = dateObj.format('DD');
+        const mm = dateObj.format('M');
+        const dd = dateObj.format('D');
+        const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+        const dayName = days[dateObj.day()];
 
         const generatedImages = await generateMealImages(dateObj.toDate());
 
@@ -26,7 +28,7 @@ async function runUploadTask(targetDate: Date) {
             return;
         }
 
-        const caption = `${yyyy}년 ${mm}월 ${dd}일`;
+        const caption = `${yyyy}년 ${mm}월 ${dd}일 ${dayName}`;
 
         logger.info('인스타그램 업로드');
         await uploadToInstagram(generatedImages, caption);

@@ -17,6 +17,8 @@ export async function fetchNeisMeals(dateParam?: Date): Promise<MealCardData[]> 
     const yyyy = targetDate.format('YYYY');
     const mm = targetDate.format('MM');
     const dd = targetDate.format('DD');
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+    const dayName = days[targetDate.day()];
     const ymd = `${yyyy}${mm}${dd}`;
 
     const url = 'https://open.neis.go.kr/hub/mealServiceDietInfo';
@@ -58,7 +60,7 @@ export async function fetchNeisMeals(dateParam?: Date): Promise<MealCardData[]> 
 
             return {
                 items,
-                date: `${yyyy}. ${mm}. ${dd}`,
+                date: `${yyyy}. ${mm}. ${dd} (${dayName})`,
                 mealType: `[${row.MMEAL_SC_NM}]`,
                 calories: Math.round(calories),
                 watermark: '@neungjuhs_lunch',
